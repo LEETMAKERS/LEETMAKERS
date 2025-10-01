@@ -73,16 +73,15 @@ cp reqs/env/.env.example reqs/env/.env
 
 # Build and start
 make build
-make up
 
 # Access the platform
 # Website: https://leetmakers.com (local only)
-# phpMyAdmin: http://localhost:8080
+# phpMyAdmin: http://leetmakers.com:8001
 ```
 
 > **Note**: The domain `leetmakers.com` is currently configured for local testing only. You must configure your hosts file as shown above to access the platform. When the project is deployed and completed, it will use a public DNS. An automated setup script may be provided in a future update.
 
-### Main make Commands
+### Main available Commands
 
 ```bash
 make help       # Show full help message with all available commands
