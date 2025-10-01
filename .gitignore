@@ -1,0 +1,34 @@
+# OS Generated Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor Files
+.vscode/
+.idea/
+*~
+
+# Temporary Files
+*.tmp
+*.log
+*.swp
+*.swo
+
+# History Files
+.history/
+
+# Backup Files
+.backup/
+
+# Ignore license file for the current time
+license
+
+# Ignore environment files (but allow .env.example)
+reqs/env/*
+!reqs/env/.env.example
+
+# Ignore Certificates files
+reqs/server/certs/
+*.crt
+*.pem
+*.key
