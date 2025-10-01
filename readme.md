@@ -21,9 +21,28 @@ A modern web platform for the 1337 IT School Robotics Club, featuring secure aut
 
 ## 🛠️ Tech Stack
 
-**Frontend**: HTML5, CSS3, Vanilla JavaScript  
-**Backend**: PHP 8.x, Apache 2.4, MySQL 8.0  
-**Tools**: Docker, PHPMailer, Google OAuth 2.0
+### Frontend
+- **HTML5** - Semantic markup
+- **CSS3** - Modern styling with custom properties
+- **JavaScript (Vanilla)** - No framework dependencies
+- **Font Awesome & RemixIcons** - Icon libraries
+
+### Backend
+- **PHP 8.x** - Server-side logic
+- **Apache 2.4** - Web server with SSL
+- **MySQL 8.0** - Relational database
+- **PHPMailer** - Email delivery system
+
+### DevOps & Tools
+- **Docker** - Containerization
+- **Docker Compose** - Multi-container orchestration
+- **Git** - Version control
+- **Make** - Build automation
+- **Composer** - PHP dependency management
+
+### External Services
+- **Google OAuth 2.0** - Third-party authentication
+- **42 Network API** - School authentication (planned)
 
 ---
 
