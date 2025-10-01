@@ -27,8 +27,5 @@ license
 reqs/env/*
 !reqs/env/.env.example
 
-# Ignore Certificates files
-reqs/server/certs/
-*.crt
-*.pem
-*.key
+# Ignore SSL certificates and keys
+reqs/server/ssl/
