@@ -1,0 +1,80 @@
+####################################################################################
+#                         Author: Abderrahmane Abdelouafi                          #
+#                          File Name: docker-compose.yml                           #
+#                      Creation Date: October 02, 2025 04:23 AM                    #
+#                      Last Updated: October 02, 2025 07:39 AM                     #
+#                          Source Language: dockercompose                          #
+#                                                                                  #
+#                             --- Code Description ---                             #
+#   Docker Compose file for LEETMAKERS Platform, configuring MySQL, Apache,        #
+#   and phpMyAdmin with environment-based settings and networking.                 #
+####################################################################################
+
+services:
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    env_file:
+      - env/.env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
+    volumes:
+      - ${PWD}/reqs/db:/docker-entrypoint-initdb.d
+    restart: on-failure
+    init: true
+    networks:
+      - leetmakers-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
+
+  apache:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: apache
+    image: apache
+    volumes:
+      - ${PWD}/reqs/website:/var/www/html
+      - ${PWD}/reqs/env/.env:/var/www/env/.env
+      - ${PWD}/reqs/server/logs:/var/www/logs
+      - ${PWD}/reqs/server/ssl/certs:/etc/apache2/ssl/certs
+      - ${PWD}/reqs/server/ssl/private:/etc/apache2/ssl/private
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: on-failure
+    init: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - leetmakers-net
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "8001:80"
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_PORT: ${PMA_PORT}
+    restart: on-failure
+    init: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - leetmakers-net
+
+networks:
+  leetmakers-net:
+    name: leetmakers-net
+    driver: bridge
