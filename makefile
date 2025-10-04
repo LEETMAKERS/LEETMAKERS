@@ -3,7 +3,7 @@
 #                         Author: Abderrahmane Abdelouafi                          #
 #                               File Name: Makefile                                #
 #                      Creation Date: October 01, 2025 05:30 AM                    #
-#                      Last Updated: October 01, 2025 06:45 AM                     #
+#                      Last Updated: October 04, 2025 16:00 PM                     #
 #                            Source Language: makefile                             #
 #                                                                                  #
 #                             --- Code Description ---                             #
@@ -130,6 +130,8 @@ clean: down
 	${HIDE}docker images -qa | xargs -r docker rmi -f
 	${HIDE}docker volume ls -q | xargs -r docker volume rm
 	${HIDE}docker builder prune --all --force
+	${PRINTF_} "$(RED)Cleaning server logs and SSL certificates...\n$(RESET)"
+	${HIDE}rm -rf reqs/server/logs reqs/server/ssl 2>/dev/null
 	${PRINTF_} "$(GREEN)Cleanup completed successfully.\n$(RESET)"
 
 # Default rule
