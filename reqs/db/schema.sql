@@ -1,14 +1,15 @@
--------------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------------
 --                         Author: Abderrahmane Abdelouafi                         --
 --                              File Name: schema.sql                              --
 --                    Creation Date: October 03, 2025 05:59 AM                     --
---                     Last Updated: October 03, 2025 06:22 PM                     --
---                            Source Language: SQL (mysql)                         -- --                                                                                 --
+--                     Last Updated: October 04, 2025 15:27 PM                     --
+--                            Source Language: SQL (mysql)                         --
+--                                                                                 --
 --                             --- Code Description ---                            --
 --     Defines the core database schema for the LEETMAKERS platform. This file     --
 --  includes identity management, activity logging, and user notification tables,  --
 --    along with indexes and relational constraints to ensure data integrity.      --
--------------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------------
 
 -- Use database
 USE `LEETMAKERS`;
