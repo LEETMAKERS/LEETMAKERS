@@ -1,0 +1,145 @@
+####################################################################################
+#                         Author: Abderrahmane Abdelouafi                          #
+#                              File Name: Dockerfile                               #
+#                      Creation Date: October 05, 2025 05:19 AM                    #
+#                      Last Updated: October 05, 2025 07:04 AM                     #
+#                       Source Language: apache configuration                      #
+#                                                                                  #
+#                             --- Code Description ---                             #
+#     This file configures URL rewriting, routing, and security rules for the      #
+#     Leetmakers platform.                                                         #
+#     Features included:                                                           #
+#       - Enable mod_rewrite and clean, extensionless URLs                         #
+#       - Route requests to frontend/ and backend/ directories transparently       #
+#       - Serve index.php for root and subdirectories when available               #
+#       - Restrict direct access to sensitive directories and files                #
+#       - Custom error handling with redirection to /errors/handler                #
+#       - Disable directory listing                                                #
+####################################################################################
+
+<IfModule mod_rewrite.c>
+    # Enable the rewrite engine
+    RewriteEngine On
+    # Set the base URL for the website
+    RewriteBase /
+    # Disable directory listing
+    Options -Indexes 
+
+    # Redirect .php extension to extensionless URL
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
+    RewriteRule ^ %1 [R=301,L]
+
+    # Handle root path specifically - serve frontend/index.php
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteCond %{DOCUMENT_ROOT}/frontend/index.php -f
+    RewriteRule ^$ frontend/index.php [L]
+
+    # Rule to serve files from the frontend folder without including "frontend" in the URL
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ frontend/$1 [L]
+
+    # Rule to handle files with .php extensions inside the frontend folder
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI}.php -f
+    RewriteRule ^(.*)$ frontend/$1.php [L]
+
+    # Rule to handle files with .html extensions inside the frontend folder
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI}.html -f
+    RewriteRule ^(.*)$ frontend/$1.html [L]
+
+    # Forbid access to directories without index files (return 403)
+    # Check frontend directory (exclude root path)
+    RewriteCond %{REQUEST_URI} !^/$
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI} -d
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI}/index.php !-f
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI}/index.html !-f
+    RewriteRule ^.*$ - [F,L]
+
+    # Check backend directory (exclude root path)
+    RewriteCond %{REQUEST_URI} !^/$
+    RewriteCond %{DOCUMENT_ROOT}/backend/%{REQUEST_URI} -d
+    RewriteCond %{DOCUMENT_ROOT}/backend/%{REQUEST_URI}/index.php !-f
+    RewriteCond %{DOCUMENT_ROOT}/backend/%{REQUEST_URI}/index.html !-f
+    RewriteRule ^.*$ - [F,L]
+
+    # Check root directory (but exclude the root path itself)
+    RewriteCond %{REQUEST_URI} !^/$
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_FILENAME}/index.php !-f
+    RewriteCond %{REQUEST_FILENAME}/index.html !-f
+    RewriteRule ^.*$ - [F,L]
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI}.php -f
+    RewriteRule ^(.*)$ frontend/$1.php [L]
+
+    # Rule to handle files with .html extensions inside the frontend folder
+    RewriteCond %{DOCUMENT_ROOT}/frontend/%{REQUEST_URI}.html -f
+    RewriteRule ^(.*)$ frontend/$1.html [L]
+
+    # Rule to serve files from the backend folder without including "backend" in the URL
+    RewriteCond %{DOCUMENT_ROOT}/backend/%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ backend/$1 [L]
+
+    # Rule to handle files with .php extensions inside the backend folder
+    RewriteCond %{DOCUMENT_ROOT}/backend/%{REQUEST_URI}.php -f
+    RewriteRule ^(.*)$ backend/$1.php [L]
+
+    # Rule to serve files without extensions for .php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php [L,QSA]
+
+    # Rule to serve files without extensions for .html
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L,QSA]
+
+    # Restrict access to all files in the backend/includes/ directory
+    RewriteRule ^backend/includes/.*$ - [F,L]
+
+    # Restrict access to /frontent/components/ directory
+    RewriteRule ^frontend/components/.*$ - [F,L]
+
+    # Restrict access to /frontend/templates/ directory
+    RewriteRule ^frontend/templates/.*$ - [F,L]
+
+    # Restrict direct access to files under /assets folder
+    RewriteCond %{REQUEST_URI} ^/assets/
+    RewriteCond %{HTTP_REFERER} ^$
+    RewriteRule ^assets/.*$ - [F,L]
+
+    # Prevent infinite loop on error handler
+    RewriteCond %{REQUEST_URI} ^/errors/handler [NC]
+    RewriteRule ^ - [L]
+
+    # Redirect to custom error page with query parameter
+    RewriteCond %{ENV:REDIRECT_STATUS} =400
+    RewriteRule ^.*$ /errors/handler?code=400 [R=302,L]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} =401
+    RewriteRule ^.*$ /errors/handler?code=401 [R=302,L]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} =403
+    RewriteRule ^.*$ /errors/handler?code=403 [R=302,L]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} =404
+    RewriteRule ^.*$ /errors/handler?code=404 [R=302,L]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} =408
+    RewriteRule ^.*$ /errors/handler?code=408 [R=302,L]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} =500
+    RewriteRule ^.*$ /errors/handler?code=500 [R=302,L]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} =503
+    RewriteRule ^.*$ /errors/handler?code=503 [R=302,L]
+</IfModule>
+
+# ErrorDocument fallback for scenarios not handled by RewriteRule
+ErrorDocument 400 /errors/handler?code=400
+ErrorDocument 401 /errors/handler?code=401
+ErrorDocument 403 /errors/handler?code=403
+ErrorDocument 404 /errors/handler?code=404
+ErrorDocument 408 /errors/handler?code=408
+ErrorDocument 500 /errors/handler?code=500
+ErrorDocument 503 /errors/handler?code=503
