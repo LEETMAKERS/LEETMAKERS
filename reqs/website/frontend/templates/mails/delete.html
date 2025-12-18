@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fdfdfd;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .email-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 37px 42px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-section img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin: 0;
+        }
+
+        .warning-icon {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .warning-icon svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        .greeting {
+            font-size: 16px;
+            color: #2c2c2c;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .message a {
+            color: #6495ED;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .warning-box p {
+            font-size: 15px;
+            color: #e65100;
+            margin: 8px 0;
+        }
+
+        .warning-box strong {
+            color: #e65100;
+            font-weight: 600;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .button-danger {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: #ffffff;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+        }
+
+        .section-title {
+            font-size: 15px;
+            color: #2c2c2c;
+            font-weight: 600;
+            margin: 25px 0 10px 0;
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 10px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .signature {
+            font-size: 15px;
+            color: #666;
+            margin-top: 30px;
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                padding: 40px 30px;
+                border-radius: 0;
+            }
+
+            .title {
+                font-size: 22px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            .button-danger {
+                padding: 12px 28px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <img src="cid:logo" alt="{{wbstname}} Logo">
+            <h1 class="brand-name">{{wbstname}}</h1>
+        </div>
+
+        <p class="greeting">Hi {{fstname}} {{lstname}},</p>
+
+        <p class="message">
+            We received a request to permanently delete your {{wbstname}} account. Before proceeding, please carefully
+            review what this means for your account and data.
+        </p>
+
+        <p class="section-title">This action will permanently:</p>
+        <div class="message">
+            <p>• Delete all your personal information and profile data</p>
+            <p>• Remove all your content, projects, and contributions</p>
+            <p>• Revoke access to all {{wbstname}} services</p>
+            <p>• Cannot be undone after confirmation</p>
+        </div>
+
+        <p class="message">
+            If you're sure you want to proceed with deleting your account, please click the button below to confirm.
+            This link will expire in <strong>24 hours</strong> for your security.
+        </p>
+
+        <!-- Confirm Button -->
+        <div class="button-container">
+            <a href="{{confirmUrl}}" class="button-danger">Confirm Account Deletion</a>
+        </div>
+
+        <div class="separator"></div>
+
+        <p class="section-title">Didn't Request This?</p>
+        <p class="message">
+            If you didn't request account deletion, you can safely ignore this email. Your account will remain active
+            and secure. However, if you're concerned about unauthorized access, please contact our security team
+            immediately at <a href="mailto:{{sprtmail}}">{{sprtmail}}</a>.
+        </p>
+
+        <div class="separator"></div>
+
+        <p class="section-title">Changed Your Mind?</p>
+        <p class="message">
+            Simply ignore this email and your account will remain active. We'd love to have you stay as part of the
+            {{wbstname}} community!
+        </p>
+
+        <div class="separator"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="signature">Best regards,<br>The {{wbstname}} Security Team</p>
+            <p class="copyright">© {{date}} {{wbstname}}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>
