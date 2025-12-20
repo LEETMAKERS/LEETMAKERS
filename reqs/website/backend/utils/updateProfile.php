@@ -209,18 +209,25 @@ if (!empty($_POST['new-password']) && !empty($_POST['cnfrm-password'])) {
     $newPassword = validate($_POST['new-password']);
     $confirmPassword = validate($_POST['cnfrm-password']);
 
-    if (!verifyCurrentPassword($conn, $currentPassword)) {
-        $_SESSION['error'] = "Error: Entered Current Password is incorrect.";
-        header("Location: $redirectUrl");
-        exit();
+    // Check if user has an existing password (not OAuth user setting first password)
+    $hasExistingPassword = !empty($userDetails['password']) && $userDetails['password'] !== null;
+
+    // Only verify current password if user has an existing password
+    if ($hasExistingPassword) {
+        if (!verifyCurrentPassword($conn, $currentPassword)) {
+            $_SESSION['error'] = "Error: Entered Current Password is incorrect.";
+            header("Location: $redirectUrl");
+            exit();
+        }
+        if (checkPasswordMatch($currentPassword, $newPassword)) {
+            $_SESSION['warning'] = "Warning: The New Password cannot be the same as the Current Password.";
+            header("Location: $redirectUrl");
+            exit();
+        }
     }
+
     if (!checkPasswordMatch($newPassword, $confirmPassword)) {
         $_SESSION['error'] = "Error: New Password and Confirm Password do not match.";
-        header("Location: $redirectUrl");
-        exit();
-    }
-    if (checkPasswordMatch($currentPassword, $newPassword)) {
-        $_SESSION['warning'] = "Warning: The New Password cannot be the same as the Current Password.";
         header("Location: $redirectUrl");
         exit();
     }
@@ -236,7 +243,12 @@ if (!empty($_POST['new-password']) && !empty($_POST['cnfrm-password'])) {
     $profileChanged = true;
     $updateTypes[] = 'password';
     $passwordChanged = true;
-    recordLogs("Password changed", 'INFO');
+
+    if ($hasExistingPassword) {
+        recordLogs("Password changed for user ID: $userId", 'INFO');
+    } else {
+        recordLogs("First password set for OAuth user ID: $userId", 'INFO');
+    }
 }
 
 if ($profileChanged) {
