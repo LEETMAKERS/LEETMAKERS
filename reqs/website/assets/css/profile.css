@@ -1,0 +1,473 @@
+/* Light Theme Variables */
+:root {
+    /* Border Colors */
+    --border-color: #ccc;
+    --upload-icon-border: #bebebe;
+    --input-focus-border: #c9c9c9;
+    --input-border: #c9c9c9;
+
+    /* Background Colors */
+    --upload-icon-bg: #5c5c5c;
+    --input-bg: white;
+    --input-focus-bg: white;
+    --disabled-bg: #f0f0f0;
+
+    /* Text and Icon Colors */
+    --upload-icon-color: white;
+    --upload-icon-i-color: #fafafa;
+    --label-color: #7e7e7e;
+    --input-text-color: #464242;
+    --readonly-text-color: #a5a5a5;
+    --icon-color: #acacac;
+    --link-color: #55525a;
+
+    /* Focus and Hover Colors */
+    --input-focus-color: cornflowerblue;
+    --icon-hover-color: #333;
+    --link-hover-color: cornflowerblue;
+    --edit-icon-color: #7e7e7e;
+    --edit-icon-hover-color: cornflowerblue;
+    --edit-icon-delete-color: red;
+    --save-btn-bg: cornflowerblue;
+    --save-btn-color: white;
+    --save-btn-hover-bg: rgb(98, 153, 255);
+    --modal-subtitle-active-color: cornflowerblue;
+}
+
+/* Dark Theme Overrides */
+body.dark-theme {
+    --border-color: #444;
+    --upload-icon-bg: #444;
+    --upload-icon-border: #333;
+    --input-bg: #2b2b2b;
+    --label-color: #dcdcdc;
+    --input-focus-border: #888;
+    --input-focus-bg: #333;
+    --input-border: #444;
+    --input-text-color: #e4e4e4;
+    --input-focus-color: #75aaff;
+    --disabled-bg: #555;
+    --readonly-text-color: #999;
+    --icon-color: #a7a4a4;
+    --icon-hover-color: #ece9e9;
+    --link-color: #c9c9c9;
+    --link-hover-color: #75aaff;
+    --edit-icon-color: #aaa;
+    --edit-icon-hover-color: #75aaff;
+    --edit-icon-delete-color: #ff6347;
+    --save-btn-bg: #75aaff;
+    --save-btn-hover-bg: #5a8fe5;
+    --modal-subtitle-active-color: #75aaff;
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 90%;
+    margin: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    border-radius: 10px;
+}
+
+/* Form Styling */
+.profile-form {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Profile Picture */
+.profile-picture {
+    position: relative;
+    width: 142px;
+    height: 142px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--border-color);
+}
+
+.upload-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 32px;
+    height: 32px;
+    background: var(--upload-icon-bg);
+    color: var(--upload-icon-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--upload-icon-border);
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-icon i {
+    font-size: 1rem;
+    color: var(--upload-icon-i-color);
+}
+
+.upload-icon:hover {
+    background: var(--link-hover-color);
+}
+
+/* Modal Overlay (Only Covers .main.container) */
+.modal-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.483);
+    z-index: 999;
+    border-radius: 10px;
+}
+
+/* When modal is active, blur only the main container */
+.main.container.modal-active {
+    position: relative;
+    pointer-events: none;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    width: 740px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-self: center;
+    justify-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1001;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Close Button */
+.close-modal {
+    float: right;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--edit-icon-delete-color);
+}
+
+.modal-title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.modal-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.modal-subtitle.active {
+    color: var(--modal-subtitle-active-color);
+}
+
+.modal-separator {
+    width: 100%;
+    height: 2px;
+    background: var(--border-color);
+    margin: 15px 0;
+}
+
+/* Subtitles Side by Side */
+.modal-subtitles {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    gap: 20px;
+}
+
+/* Default Div Displayed Initially */
+.upload {
+    display: none;
+}
+
+.option {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.default {
+    display: flex;
+}
+
+/* Grid Styling for Default Avatars */
+.default-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.def-avatars {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    object-fit: cover;
+    margin-bottom: 3px;
+    border: 3px solid var(--input-border);
+}
+
+.def-avatars:hover {
+    border: 3px solid var(--input-focus-color);
+}
+
+/* Hide File Input */
+.profile-input {
+    display: none;
+}
+
+/* Drop Area Styling */
+.drop-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.drop-area.drag-over {
+    background: var(--disabled-bg);
+    border-color: var(--input-focus-color);
+}
+
+.drop-area i {
+    font-size: 3rem;
+    color: var(--border-color);
+}
+
+.drop-area h3 {
+    font-size: 1.25rem;
+    margin: 10px 0;
+}
+
+.drop-area p {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Input Field Styling */
+.input-field {
+    position: relative;
+    margin-bottom: 15px;
+    background-color: var(--input-bg);
+    border-radius: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    transform: translateY(-50%);
+    color: var(--label-color);
+    pointer-events: none;
+    transition: 0.3s ease all;
+    font-size: 1.2rem;
+    padding: 0 7.5px;
+}
+
+.input-field input:focus + label,
+.input-field input:not(:placeholder-shown) + label,
+.input-field.has-value label {
+    top: -16px;
+    left: 20px;
+    border-radius: 15px 15px 5px 5px;
+    border: 3px solid var(--input-focus-border);
+    background-color: var(--input-focus-bg);
+    transform: translateY(0) scale(0.8);
+}
+
+.input-field input {
+    width: 100%;
+    height: 55px;
+    padding: 12px;
+    padding-left: 45px;
+    padding-right: 45px;
+    border: 3px solid var(--input-border);
+    border-radius: 55px;
+    font-size: 18px;
+    background-color: transparent;
+    color: var(--input-text-color);
+    font-weight: 500;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.input-field input:not(:placeholder-shown):not(:disabled):not([readonly]) {
+    border-color: var(--input-focus-color);
+}
+
+.input-field input:focus:not(:disabled):not([readonly]) {
+    border-color: var(--input-focus-color);
+    outline: none;
+}
+
+.disabled-input,
+input[readonly] {
+    background-color: var(--disabled-bg);
+    border-color: var(--border-color);
+    outline: none;
+}
+
+input[readonly] {
+    color: var(--readonly-text-color);
+}
+
+/* Icons in Input Fields */
+.input-field i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--icon-color);
+    transition: 0.3s;
+}
+
+.input-field i:not(.toggle-password, .edit-icon) {
+    left: 18px;
+}
+
+.input-field i.toggle-password {
+    right: 18px;
+    cursor: pointer;
+}
+
+.input-field i.toggle-password:hover {
+    color: var(--icon-hover-color);
+}
+
+.input-field input::placeholder {
+    color: transparent;
+}
+
+/* Generate Password Link */
+.link-gnrtpswrd {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.link-gnrtpswrd a {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.link-gnrtpswrd a:hover {
+    color: var(--link-hover-color);
+    cursor: pointer;
+}
+
+.link-gnrtpswrd a:hover i {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Edit Icon */
+.edit-icon {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--edit-icon-color);
+    transition: color 0.3s;
+}
+
+.edit-icon:hover {
+    color: var(--edit-icon-hover-color);
+}
+
+.edit-icon.fa-times:hover {
+    color: var(--edit-icon-delete-color);
+}
+
+/* Responsive Input Fields */
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.input-row > .input-field {
+    flex: 1;
+    min-width: 48%;
+}
+
+@media (max-width: 600px) {
+    .input-row {
+        flex-direction: column;
+    }
+    .input-row > .input-field {
+        min-width: 100%;
+    }
+}
+
+/* Save Button */
+.save-btn {
+    background: var(--save-btn-bg);
+    color: var(--save-btn-color);
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    max-width: 200px;
+    margin: auto;
+    text-align: center;
+}
+
+.save-btn:hover {
+    background: var(--save-btn-hover-bg);
+}
