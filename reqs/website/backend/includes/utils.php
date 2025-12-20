@@ -341,8 +341,17 @@ function checkResetToken($token, $redirectUrl)
  */
 function verifyCurrentPassword($conn, $inputPassword)
 {
-    // Fetch only the password field for the current user
-    $userDetails = getUserDetails($conn, ['password']);
+    // Get the session ID
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['id'])) {
+        return false;
+    }
+
+    // Fetch user details with correct parameter order
+    $userDetails = getUserDetails($_SESSION['id'], $conn);
 
     // Return false if an error occurred while fetching user details
     if (isset($userDetails['error']) || empty($userDetails['password'])) {
