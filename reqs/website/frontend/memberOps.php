@@ -9,6 +9,7 @@ ensureUserIsLoggedIn("memberOps");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,16 +19,16 @@ ensureUserIsLoggedIn("memberOps");
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
    <!--=============== CSS ===============-->
    <link rel="stylesheet" href="/assets/css/navSideBar.css">
-    <link rel="stylesheet" href="/assets/css/notifier.css">
-   <link rel="shortcut icon" href="/assets/res/logo/leetmakers.jpg" type="image/x-icon" sizes="64x64">
+   <link rel="stylesheet" href="/assets/css/notifier.css">
+   <link rel="shortcut icon" href="/assets/res/logo/leetmakers.ico" type="image/x-icon" sizes="64x64">
    <title>LEET MAKERS - Member Ops</title>
 </head>
+
 <body>
    <!-- Include the navigation sidebar -->
    <?php require_once __DIR__ . "/components/navSideBar.php"; ?>
    <ul class="notifications nvsdbr"></ul>
-   <div id="session-messages"
-      data-error="<?php echo isset($_SESSION['error']) ? $_SESSION['error'] : ''; ?>"
+   <div id="session-messages" data-error="<?php echo isset($_SESSION['error']) ? $_SESSION['error'] : ''; ?>"
       data-success="<?php echo isset($_SESSION['success']) ? $_SESSION['success'] : ''; ?>"
       data-warning="<?php echo isset($_SESSION['warning']) ? $_SESSION['warning'] : ''; ?>"
       data-info="<?php echo isset($_SESSION['info']) ? $_SESSION['info'] : ''; ?>">
@@ -40,8 +41,10 @@ ensureUserIsLoggedIn("memberOps");
    <script src="/assets/js/logout.js"></script>
    <script src="/assets/js/notifier.js"></script>
 </body>
+
 </html>
 <?php
 // Flush the output buffer.
 ob_end_flush();
 ?>
+

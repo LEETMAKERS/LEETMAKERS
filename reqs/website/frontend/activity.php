@@ -25,7 +25,7 @@ ensureUserIsAdmin($_SESSION['id'], $conn);
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="/assets/css/navSideBar.css">
     <link rel="stylesheet" href="/assets/css/notifier.css">
-    <link rel="shortcut icon" href="/assets/res/logo/leetmakers.jpg" type="image/x-icon" sizes="64x64">
+    <link rel="shortcut icon" href="/assets/res/logo/leetmakers.ico" type="image/x-icon" sizes="64x64">
     <title>LEET MAKERS - Activity</title>
 </head>
 

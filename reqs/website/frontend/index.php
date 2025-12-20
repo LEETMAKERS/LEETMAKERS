@@ -8,7 +8,7 @@
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-   <link rel="shortcut icon" href="Resources/logo/leetmakers.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/assets/res/logo/leetmakers.ico" type="image/x-icon">
    <link rel="stylesheet" href="/assets/css/home.css">
    <title>LEET MAKERS</title>
 </head>
