@@ -29,3 +29,6 @@ reqs/env/*
 
 # Ignore SSL certificates and keys
 reqs/server/ssl/
+
+# Ignore users uploaded profile images
+reqs/website/assets/res/avatars/uploads/*
