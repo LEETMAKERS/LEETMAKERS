@@ -2,7 +2,7 @@
 --                         Author: Abderrahmane Abdelouafi                         --
 --                              File Name: schema.sql                              --
 --                    Creation Date: October 03, 2025 05:59 AM                     --
---                     Last Updated: October 04, 2025 15:27 PM                     --
+--                     Last Updated: December 24, 2025 09:27 AM                    --
 --                            Source Language: SQL (mysql)                         --
 --                                                                                 --
 --                             --- Code Description ---                            --
@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS `identity` (
   `otpTokenExpiry` DATETIME DEFAULT NULL,
   `resetTokenHash` VARCHAR(64) DEFAULT NULL,
   `resetTokenExpiry` DATETIME DEFAULT NULL,
+  `deleteToken` VARCHAR(64) DEFAULT NULL,
+  `deleteTokenExpiry` DATETIME DEFAULT NULL,
   `role` ENUM('visitor', 'member', 'admin') NOT NULL DEFAULT 'visitor',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -83,3 +85,19 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   INDEX `idx_notifications_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- =============================
+-- Table: inventory (materials)
+-- =============================
+CREATE TABLE IF NOT EXISTS `inventory` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `item_name` VARCHAR(64) NOT NULL,
+  `item_image` VARCHAR(255) DEFAULT NULL,
+  `category` VARCHAR(64) DEFAULT NULL,
+  `quantity` INT NOT NULL DEFAULT 0,
+  `status` ENUM('available', 'unavailable', 'reserved') NOT NULL DEFAULT 'available',
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_item_name` (`item_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
