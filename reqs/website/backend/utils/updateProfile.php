@@ -1,9 +1,17 @@
 <?php
+
 session_start();
 require_once __DIR__ . "/../includes/utils.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: /errors/handler?error=403");
+    exit();
+}
+
+// CSRF token validation
+if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+    $_SESSION['error'] = "Error: Invalid or missing CSRF token.";
+    header("Location: /profile");
     exit();
 }
 
