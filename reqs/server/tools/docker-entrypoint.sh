@@ -2,7 +2,7 @@
 #                         Author: Abderrahmane Abdelouafi                          #
 #                          File Name: docker-entrypoint.sh                         #
 #                      Creation Date: October 04, 2025 14:01 PM                    #
-#                      Last Updated: October 04, 2025 14:47 PM                     #
+#                      Last Updated: Decemeber 24, 2025 09:50 AM                   #
 #                           Source Language: shellscript                           #
 #                                                                                  #
 #                             --- Code Description ---                             #
@@ -21,6 +21,13 @@ CERTS_PRV_KEYS_DIR="/etc/apache2/ssl/private"
 # Create directories if they don't exist
 mkdir -p "$SSL_CERTS_DIR"
 mkdir -p "$CERTS_PRV_KEYS_DIR"
+
+# Create log directories for Apache
+mkdir -p /var/www/logs/apache
+mkdir -p /var/www/logs/application
+
+# Set proper ownership for PHP to write logs
+chown -R www-data:www-data /var/www/logs/application
 
 # Generate SSL certificates if they don't exist
 if [ ! -f "$SSL_CERTS_DIR/server.crt" ] || [ ! -f "$CERTS_PRV_KEYS_DIR/server.key" ]; then
