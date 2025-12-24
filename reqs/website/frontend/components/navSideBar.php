@@ -89,27 +89,27 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
                   <i class="ri-calendar-event-line"></i>
                   <span>Events</span>
                </a>
-            </div>
-         </div>
-
-         <?php if (isset($userDetails['role']) && $userDetails['role'] === 'admin'): ?>
-         <div>
-            <h3 class="sidebar__title">ADMIN</h3>
-            <div class="sidebar__list">
                <a href="/inventory" class="sidebar__link <?= isActive('inventory', $currentPage) ?>">
                   <i class="ri-archive-line"></i>
                   <span>Inventory</span>
                </a>
-               <a href="/activity" class="sidebar__link <?= isActive('activity', $currentPage) ?>">
-                  <i class="ri-history-line"></i>
-                  <span>Activity</span>
-               </a>
-               <a href="/memberops" class="sidebar__link <?= isActive('memberops', $currentPage) ?>">
-                  <i class="ri-shield-user-line"></i>
-                  <span>Members Ops</span>
-               </a>
             </div>
          </div>
+
+         <?php if (isset($userDetails['role']) && $userDetails['role'] === 'admin'): ?>
+            <div>
+               <h3 class="sidebar__title">ADMIN</h3>
+               <div class="sidebar__list">
+                  <a href="/activity" class="sidebar__link <?= isActive('activity', $currentPage) ?>">
+                     <i class="ri-history-line"></i>
+                     <span>Activity</span>
+                  </a>
+                  <a href="/memberops" class="sidebar__link <?= isActive('memberops', $currentPage) ?>">
+                     <i class="ri-shield-user-line"></i>
+                     <span>Members Ops</span>
+                  </a>
+               </div>
+            </div>
          <?php endif; ?>
 
          <div>
