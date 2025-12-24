@@ -6,6 +6,12 @@ ob_start();
 // If the user is not logged in, they will be redirected before any HTML is output.
 require_once __DIR__ . "/../backend/includes/utils.php";
 ensureUserIsLoggedIn("profile");
+
+// CSRF token generation
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
