@@ -5,12 +5,19 @@ require_once __DIR__ . "/../includes/utils.php";
 
 checkRequestMethodAndLoginState();
 
+
+$redirectUrl = "/auth/secure?action=reset";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        $_SESSION['error'] = "Error: Invalid or missing CSRF token.";
+        header("Location: $redirectUrl");
+        exit();
+    }
+}
 if (isset($_POST['resetToken'], $_POST['newpassword'], $_POST['cnfrmpassword'])) {
 
     // Connect to the database
     require_once __DIR__ . "/../includes/dbConn.php";
-
-    $redirectUrl = "/auth/secure?action=reset";
 
     checkDatabaseConnection($conn, $redirectUrl);
 

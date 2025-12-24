@@ -1,11 +1,15 @@
 <?php
 session_start();
-
 // Check if the user is already logged in
 if (isset($_SESSION['id'])) {
-    header("Location: ../dashboard");
-    exit();
+   header("Location: ../dashboard");
+   exit();
 }
+// CSRF token generation
+if (empty($_SESSION['csrf_token'])) {
+   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +41,7 @@ if (isset($_SESSION['id'])) {
                <!-- Verify Account Form -->
                <form action="/auth/verifyAccount" method="post" class="vrfy-accnt-form" id="vrfyAccountForm" autocomplete="off">
                   <h2 class="title-long">Activate Your Account</h2>
+                  <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                   <!-- OTP Section -->
                   <div class="otp-section">
                      <label for="otp1" class="otp-label">Please Enter the OTP Sent to Your Email</label>

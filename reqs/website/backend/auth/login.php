@@ -5,12 +5,18 @@ require_once __DIR__ . "/../includes/utils.php";
 
 checkRequestMethodAndLoginState();
 
+
+$redirectUrl = "/auth/authenticate?action=login";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        $_SESSION['error'] = "Error: Invalid or missing CSRF token.";
+        header("Location: $redirectUrl");
+        exit();
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username'], $_POST['password'])) {
 
     require_once __DIR__ . "/../includes/dbConn.php";
-
-    // redirectUrl
-    $redirectUrl = "/auth/authenticate?action=login";
 
     checkDatabaseConnection($conn, $redirectUrl);
 

@@ -1,11 +1,15 @@
 <?php
 session_start();
-
 // Check if the user is already logged in
 if (isset($_SESSION['id'])) {
-    header("Location: ../dashboard");
-    exit();
+   header("Location: ../dashboard");
+   exit();
 }
+// CSRF token generation
+if (empty($_SESSION['csrf_token'])) {
+   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +40,7 @@ if (isset($_SESSION['id'])) {
                <!-- Forgot Password Form -->
                <form action="/auth/forgotPassword" method="post" class="frgt-pswrd-form" id="forgotPasswordForm" autocomplete="off" novalidate>
                   <h2 class="title-long">Request Password Reset</h2>
+                  <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                   <!-- Email Field -->
                   <div class="input-field">
                      <i class="fas fa-envelope"></i>
@@ -49,6 +54,7 @@ if (isset($_SESSION['id'])) {
                <!-- Request Verification Token Form -->
                <form action="/auth/requestOtp" method="post" class="rqst-tkn-form" id="requestTokenForm" autocomplete="off" novalidate>
                   <h2 class="title-long">Request Account Verification</h2>
+                  <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                   <!-- Email Field -->
                   <div class="input-field">
                      <i class="fas fa-envelope"></i>

@@ -8,13 +8,19 @@ checkRequestMethodAndLoginState();
 // Define the base directory (root of the project)
 define('BASE_DIR', '/var/www/html');
 
+
+$redirectUrl = "/auth/authenticate?action=register";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty($_POST['csrf_token']) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        $_SESSION['error'] = "Error: Invalid or missing CSRF token.";
+        header("Location: $redirectUrl");
+        exit();
+    }
+}
 // Check if required fields are submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fstname'], $_POST['lstname'], $_POST['email'], $_POST['gender'])) {
 
     require_once __DIR__ . "/../includes/dbConn.php";
-
-    // Redirect URL for any errors
-    $redirectUrl = "/auth/authenticate?action=register";
 
     checkDatabaseConnection($conn, $redirectUrl);
 
