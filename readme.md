@@ -9,13 +9,23 @@ A modern web platform for the 1337 IT School Robotics Club, featuring secure aut
 
 ---
 
-## ✨ Key Features
 
-- 🔐 **Multi-Authentication**: Email/Password, Google OAuth, 42 Intra OAuth
-- 👥 **Role-Based Access**: User and Admin roles with protected pages
-- 📧 **Email System**: Professional transactional emails (verification, password reset, etc.)
-- 🎨 **Modern UI**: Responsive design with dark/light theme support
-- 🐳 **Docker Ready**: Fully containerized with Docker Compose
+## ✨ Features
+
+### User-Facing Highlights
+- **Secure Multi-Authentication:** Sign up and log in using Email/Password, Google OAuth, or 42 Intra OAuth (planned).
+- **Personalized Profiles:** Customizable user profiles with avatar support and profile editing.
+- **Resource Management:** Access and manage club resources, events, and notifications in a unified dashboard.
+- **Community Engagement:** Participate in club activities, view member lists, and interact with the community.
+- **Modern UI/UX:** Responsive, accessible design with dark/light mode and mobile support.
+
+### Technical & Admin Features
+- **Role-Based Access Control:** User and Admin roles with protected routes and admin-only features.
+- **Transactional Email System:** Automated emails for verification, password reset, and notifications using PHPMailer.
+- **Robust Security:** Password hashing (bcrypt), OTP verification, session management, and SSL/TLS support.
+- **Containerized Deployment:** Docker and Docker Compose for easy setup, scaling, and consistent environments.
+- **Logging & Monitoring:** Centralized logs for Apache and application events.
+- **Extensible Architecture:** Modular backend (PHP) and frontend (HTML/CSS/JS) for easy feature expansion.
 
 ---
 
@@ -57,7 +67,7 @@ A modern web platform for the 1337 IT School Robotics Club, featuring secure aut
 
 ```bash
 # Clone the repository
-git clone https://github.com/ababdelo/LEETMAKERS.git
+git clone https://github.com/LEETMAKERS/LEETMAKERS.git
 cd LEETMAKERS
 
 # Configure environment
@@ -95,48 +105,78 @@ make fclean     # Full clean
 
 ---
 
+
 ## 📁 Project Structure
 
 ```
 LEETMAKERS/
-├── reqs/
-│   ├── docker-compose.yml       # Container orchestration
-│   ├── db/                      # Database schema & init
-│   ├── env/                     # Environment variables
-│   ├── server/                  # Apache/PHP configuration
-│   └── website/
-│       ├── backend/             # PHP logic (auth, utils, etc.)
-│       └── frontend/            # Pages, components, templates
-├── makefile                     # Build automation
-└── readme.md                    # This file
+├── makefile                  # Build automation
+├── readme.md                 # Project documentation
+└── reqs/
+	├── docker-compose.yml    # Container orchestration
+	├── db/                   # Database schema & initialization
+	│   ├── init-db.sh
+	│   └── schema.sql
+	├── env/                  # Environment variables
+	│   ├── .env
+	│   └── .env.example
+	├── server/               # Server configuration & scripts
+	│   ├── Dockerfile
+	│   ├── config/
+	│   │   └── default-ssl.conf
+	│   ├── logs/
+	│   │   ├── apache/
+	│   │   └── application/
+	│   ├── ssl/
+	│   │   ├── certs/
+	│   │   └── private/
+	│   └── tools/
+	│       └── docker-entrypoint.sh
+	└── website/              # Web application
+		├── assets/
+		│   ├── css/          # Stylesheets (errors, forms, home, etc.)
+		│   ├── fonts/        # Custom fonts (Gugi, Tajawal, virgo_01)
+		│   ├── js/           # Frontend scripts (profile, nav, forms, etc.)
+		│   ├── lang/         # Localization (en.json, fr.json)
+		│   └── res/          # Static resources (avatars, icons, svg, etc.)
+		├── backend/
+		│   ├── auth/         # Authentication endpoints (login, register, etc.)
+		│   ├── includes/     # Core backend utilities (dbConn, mailer, etc.)
+		│   └── utils/        # User profile and utility scripts
+		└── frontend/
+			├── activity.php
+			├── community.php
+			├── dashboard.php
+			├── events.php
+			├── index.php
+			├── inventory.php
+			├── memberOps.php
+			├── notifications.php
+			├── profile.php
+			├── resources.php
+			├── settings.php
+			├── auth/        # Auth pages (authenticate, recover, secure)
+			├── components/  # Reusable UI components (navSideBar)
+			├── errors/      # Error pages (handler.html)
+			├── policies/    # Policy pages (faq, privacy, terms)
+			└── templates/
+				└── mails/   # Email templates (verify, reset, notify, etc.)
 ```
-
----
-
-## 🔒 Security Features
-
-- Password hashing with bcrypt
-- OTP verification (6-digit, 15-min expiry)
-- Session regeneration on auth events
-- Prepared SQL statements
-- SSL/TLS support
-- Role-based page protection
 
 ---
 
 ## 📧 Contact & Support
 
-- **Developer**: Abderrahmane Abdelouafi ([@ababdelo](https://github.com/ababdelo))
-- **Email**: ababdelo.ed42@gmail.com
-- **Organization**: LEET MAKERS - 1337 IT School Robotics Club (Benguerir Campus)
-
+- **Organization**: [LEET MAKERS](https://github.com/LEETMAKERS) - 1337 IT School Robotics Club (Benguerir Campus)
+- **Lead Developer**: Abderrahmane Abdelouafi ([@ababdelo](https://github.com/ababdelo))
+- **Other Contributors**: (Coming Soon)
 ---
 
 ## 📄 License
 
-**Copyright © 2025 Abderrahmane Abdelouafi. All Rights Reserved.**
+**Copyright © 2025 LEET MAKERS Organization. All Rights Reserved.**
 
-This is proprietary software developed for the LEET MAKERS Robotics Club at 1337 IT School.  
+This is proprietary software developed by and for the LEET MAKERS Robotics Club's Organization at 1337 IT School (Benguerir Campus).  
 Unauthorized use, copying, or distribution is prohibited without explicit permission.
 
 For licensing inquiries: ababdelo.ed42@gmail.com
