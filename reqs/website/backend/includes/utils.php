@@ -555,7 +555,7 @@ function sendEmail($type, $email, $fstname, $lstname, $data = null)
         ],
         'resendVerification' => [
             'subject' => "Resend Account Verification for your $wbstname Account",
-            'template' => 'resend_verification.html',
+            'template' => 're-verify.html',
             'from_email' => $env['SECURITY_MAIL'],
             'from_name' => "$wbstname Security Team",
             'redirect' => "/auth/recover?action=request",
