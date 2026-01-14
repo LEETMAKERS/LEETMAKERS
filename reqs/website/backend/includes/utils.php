@@ -98,8 +98,8 @@ function validatePasswordSecurity($password)
 function recordLogs($message, $level = 'INFO')
 {
     // Use server logs directory (mounted from host)
-    $logFolder = "/var/www/logs";
-    $logFilePath = $logFolder . "/application.log";
+    $logFolder = "/var/www/logs/application";
+    $logFilePath = $logFolder . "/application_" . date("Y-m-d") . ".log";
 
     if (!is_dir($logFolder)) {
         mkdir($logFolder, 0755, true);
