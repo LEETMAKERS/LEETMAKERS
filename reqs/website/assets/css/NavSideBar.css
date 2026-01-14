@@ -6,7 +6,7 @@
 :root {
   --header-height: 3.5rem;
   --sidebar-width-expanded: 275px;
-  --sidebar-width-collapsed: 90px;  
+  --sidebar-width-collapsed: 90px;
   --sidebar-width: var(--sidebar-width-expanded); /* Default to expanded */
 
   /*========== Colors ==========*/
@@ -15,16 +15,16 @@
   --title-color: hsl(228, 18%, 16%);
   --text-color: hsl(228, 8%, 56%);
   --body-color: hsl(228, 100%, 99%);
-  --shadow-color: hsla(228, 80%, 4%, .1);
+  --shadow-color: hsla(228, 80%, 4%, 0.1);
   --sec-shadow-color: hsla(0, 0%, 0%, 0.525);
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: "Nunito Sans", system-ui;
   /* --body-font: 'Gugi', sans-serif; */
-  --normal-font-size: .938rem;
-  --smaller-font-size: .75rem;
-  --tiny-font-size: .75rem;
+  --normal-font-size: 0.938rem;
+  --smaller-font-size: 0.75rem;
+  --tiny-font-size: 0.75rem;
 
   /*========== Font weight ==========*/
   --font-regular: 400;
@@ -39,7 +39,7 @@
 @media screen and (min-width: 1150px) {
   :root {
     --normal-font-size: 1rem;
-    --smaller-font-size: .813rem;
+    --smaller-font-size: 0.813rem;
   }
 }
 
@@ -56,7 +56,18 @@ body {
   font-size: var(--normal-font-size);
   background-color: var(--body-color);
   color: var(--text-color);
-  transition: background-color .4s;
+  transition: background-color 0.4s;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a {
@@ -79,7 +90,7 @@ body.dark-theme {
   --title-color: hsl(228, 18%, 96%);
   --text-color: hsl(228, 12%, 61%);
   --body-color: #272626;
-  --shadow-color: hsla(228, 80%, 4%, .3);
+  --shadow-color: hsla(228, 80%, 4%, 0.3);
   --sec-shadow-color: hsla(0, 1%, 70%, 0.76);
 }
 
@@ -108,8 +119,10 @@ body.dark-theme {
   margin-left: calc(var(--sidebar-width) + 2.5rem);
   margin-right: 1rem;
   margin-top: calc(var(--header-height) + 4rem);
-  height: calc(100vh - var(--header-height) - 5rem); /* Ensures it does not exceed the viewport */
-  padding: 25px;
+  margin-bottom: 1rem;
+  min-height: calc(100vh - var(--header-height) - 5rem);
+  max-height: calc(100vh - var(--header-height) - 5rem);
+  /* padding: 25px; */
   position: relative;
   z-index: 1;
   background-color: var(--body-color);
@@ -118,8 +131,8 @@ body.dark-theme {
   transition: background-color 0.4s ease;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .main::-webkit-scrollbar {
@@ -169,13 +182,13 @@ body.dark-theme {
   align-items: center;
   padding-inline: 1.5rem;
   border-radius: 1rem;
-  transition: background-color .4s;
+  transition: background-color 0.4s;
 }
 
 .header__user {
   display: inline-flex;
   align-items: center;
-  column-gap: .25rem;
+  column-gap: 0.25rem;
   border-radius: 50%;
   padding: 5px;
   box-shadow: 0 0 6px var(--sec-shadow-color);
@@ -194,13 +207,13 @@ body.dark-theme {
   cursor: pointer;
 }
 
-.header__link{
-    position: relative;
-    display: block;
-    font-size: 1.35rem;
-    color: var(--title-color);
-    cursor: pointer;
-    padding-right: 25px;
+.header__link {
+  position: relative;
+  display: block;
+  font-size: 1.35rem;
+  color: var(--title-color);
+  cursor: pointer;
+  padding-right: 25px;
 }
 
 .search-container {
@@ -214,13 +227,13 @@ body.dark-theme {
   border-radius: 9999px;
   border: solid 2px var(--shadow-color);
   letter-spacing: 1.5px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   outline: none;
   justify-content: space-between;
   background-color: var(--body-color);
   color: var(--text-color);
   opacity: 0.8;
-  transition: padding .4s, background-color .4s ease;
+  transition: padding 0.4s, background-color 0.4s ease;
 }
 
 .search-container i {
@@ -241,12 +254,12 @@ body.dark-theme {
   background-color: var(--body-color);
   box-shadow: 2px 0 24px var(--shadow-color);
   padding-block: 1.5rem;
-  margin: .75rem;
+  margin: 0.75rem;
   border-radius: 1rem;
-  transition: left .4s, background-color .4s, width .4s;
+  transition: left 0.4s, background-color 0.4s, width 0.4s;
 }
 
-.sidebar__container, 
+.sidebar__container,
 .sidebar__content {
   display: flex;
   flex-direction: column;
@@ -266,7 +279,7 @@ body.dark-theme {
   padding-left: 1.5rem;
 }
 
-.sidebar__user{
+.sidebar__user {
   display: grid;
   grid-template-columns: repeat(2, max-content);
   align-items: center;
@@ -301,7 +314,7 @@ body.dark-theme {
 .sidebar__info h3 {
   font-size: var(--normal-font-size);
   color: var(--title-color);
-  transition: color .4s;
+  transition: color 0.4s;
 }
 
 .sidebar__info span {
@@ -313,7 +326,7 @@ body.dark-theme {
 }
 
 .sidebar__content::-webkit-scrollbar {
-  width: .4rem;
+  width: 0.4rem;
   background-color: hsl(228, 8%, 85%);
 }
 
@@ -329,7 +342,7 @@ body.dark-theme {
   margin-bottom: 1.5rem;
 }
 
-.sidebar__list, 
+.sidebar__list,
 .sidebar__actions {
   display: grid;
   row-gap: 1.5rem;
@@ -343,22 +356,22 @@ body.dark-theme {
   column-gap: 1rem;
   color: var(--text-color);
   padding-left: 2rem;
-  transition: color .4s, opacity .4s;
+  transition: color 0.4s, opacity 0.4s;
 }
 
 .sidebar__link.notif {
   display: none;
 }
 
-.sidebar__link i{
+.sidebar__link i {
   font-size: 1.5rem;
 }
 
-.sidebar__link span{
+.sidebar__link span {
   font-weight: var(--font-semi-bold);
 }
 
-.sidebar__link:hover{
+.sidebar__link:hover {
   color: cornflowerblue;
 }
 
@@ -401,22 +414,22 @@ body.dark-theme {
 }
 
 @media screen and (max-width: 1024px) {
-    .input {
-        width: 350px;
-    }
+  .input {
+    width: 350px;
+  }
 }
 
 @media screen and (max-width: 855px) {
-    .input {
-        width: 270px;
-    }
-    .header__link{
-      display: none;
-    }
-    .sidebar__link.notif {
-      display: grid;
-      grid-template-columns: repeat(2, max-content);
-      column-gap: 1rem;
+  .input {
+    width: 270px;
+  }
+  .header__link {
+    display: none;
+  }
+  .sidebar__link.notif {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 1rem;
   }
 }
 
@@ -442,17 +455,17 @@ body.dark-theme {
     width: 275px;
     margin: 1rem;
   }
-  .sidebar__info, 
+  .sidebar__info,
   .sidebar__link span {
-    transition: opacity .4s;
+    transition: opacity 0.4s;
   }
-  .sidebar__logo, 
+  .sidebar__logo,
   .sidebar__title {
-    transition: padding .4s;
+    transition: padding 0.4s;
   }
 
   /* Reduce sidebar */
-  .show-sidebar{
+  .show-sidebar {
     width: 90px;
   }
   .show-sidebar .sidebar__logo {
@@ -462,24 +475,22 @@ body.dark-theme {
     padding-left: 0;
     margin-inline: auto;
   }
-  .show-sidebar .sidebar__info, 
+  .show-sidebar .sidebar__info,
   .show-sidebar .sidebar__link span {
     opacity: 0;
   }
 
-  .input{
+  .input {
     width: 320px;
   }
-  
 }
 
 /* For large devices */
 @media screen and (min-width: 769px) {
-  
   .header {
     margin: 1rem;
     padding-left: 300px;
-    transition: padding .4s;
+    transition: padding 0.4s;
   }
   .header__container {
     height: calc(var(--header-height) + 2rem);
@@ -488,26 +499,26 @@ body.dark-theme {
   .header__user {
     order: 1;
   }
-  
+
   .sidebar {
     left: 0;
     width: 275px;
     margin: 1rem;
   }
-  .sidebar__info, 
-  .sidebar__link span{
-    transition: opacity .4s;
+  .sidebar__info,
+  .sidebar__link span {
+    transition: opacity 0.4s;
   }
-  .sidebar__logo, 
+  .sidebar__logo,
   .sidebar__title {
-    transition: padding .4s;
+    transition: padding 0.4s;
   }
-  
+
   /* Reduce sidebar */
   .show-sidebar {
     width: 90px;
   }
-  
+
   .show-sidebar .sidebar__logo {
     padding-left: 1.25rem;
   }
@@ -515,11 +526,11 @@ body.dark-theme {
     padding-left: 0;
     margin-inline: auto;
   }
-  .show-sidebar .sidebar__info, 
+  .show-sidebar .sidebar__info,
   .show-sidebar .sidebar__link span {
     opacity: 0;
   }
-  
+
   /* Add padding left */
   .left-pd {
     padding-left: 115px;
@@ -533,7 +544,7 @@ body.dark-theme {
   }
 
   .header__user {
-    margin-left: auto; 
+    margin-left: auto;
   }
 
   .search-container {
@@ -547,12 +558,11 @@ body.dark-theme {
     width: 100%;
   }
 
-  .header__user{
+  .header__user {
     display: none;
   }
 
-  .sidebar__user{
+  .sidebar__user {
     display: grid;
   }
-
 }
