@@ -89,10 +89,12 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
                   <i class="ri-calendar-event-line"></i>
                   <span>Events</span>
                </a>
-               <a href="/inventory" class="sidebar__link <?= isActive('inventory', $currentPage) ?>">
-                  <i class="ri-archive-line"></i>
-                  <span>Inventory</span>
-               </a>
+               <?php if (isset($userDetails['role']) && ($userDetails['role'] === 'admin') || ($userDetails['role'] === 'member')): ?>
+                  <a href="/inventory" class="sidebar__link <?= isActive('inventory', $currentPage) ?>">
+                     <i class="ri-archive-line"></i>
+                     <span>Inventory</span>
+                  </a>
+               <?php endif; ?>
             </div>
          </div>
 
