@@ -74,7 +74,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Total Items</h3>
-                            <p class="stat-number">5</p>
+                            <p class="stat-number">0</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -83,7 +83,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Available</h3>
-                            <p class="stat-number">4</p>
+                            <p class="stat-number">0</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -92,7 +92,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Unavailable</h3>
-                            <p class="stat-number">1</p>
+                            <p class="stat-number">0</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -101,7 +101,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Total Quantity</h3>
-                            <p class="stat-number">162</p>
+                            <p class="stat-number">0</p>
                         </div>
                     </div>
                 </div>
@@ -155,378 +155,13 @@ $stmt->close();
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-label="ID">1</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Arduino Uno R3</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/arduinoUnoR3.webp" alt="Arduino" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Development Board</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">13</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="13" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- led -->
-                                <td data-label="ID">2</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Raspberry PI</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/raspberryPi.webp" alt="Raspberry PI"
-                                        class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Development Board</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">3</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="3" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="ID">3</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>ESP8266 01 Module</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/esp8266 01.webp" alt="ESP8266" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Development Board</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge quantity-low">0</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-unavailable">Unavailable</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve" disabled>
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="0" max="0" value="0"
-                                                title="Quantity" disabled>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- led -->
-                                <td data-label="ID">4</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Red LED</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/ledRed.webp" alt="LED" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Components</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">128</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="128" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- led -->
-                                <td data-label="ID">5</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Blue LED</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/ledBlue.webp" alt="LED" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Components</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">256</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="256" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- led -->
-                                <td data-label="ID">6</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Green LED</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/ledGreen.webp" alt="LED" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Components</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">96</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="96" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- led -->
-                                <td data-label="ID">7</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>White LED</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/ledWhite.webp" alt="LED" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Components</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">32</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="32" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- led -->
-                                <td data-label="ID">8</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Orange LED</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/ledOrange.webp" alt="LED" class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Components</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">24</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="24" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <!-- motorServo -->
-                                <td data-label="ID">9</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Servo Motor 180deg</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/motorServoDFRobotKit.webp" alt="Motor & Servo Kit"
-                                        class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Motors</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge">17</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="17" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="ID">10</td>
-                                <td data-label="Item Name">
-                                    <div class="item-name">
-                                        <span>Breadboard</span>
-                                    </div>
-                                </td>
-                                <td data-label="Image" class="hide-mobile">
-                                    <img src="/assets/res/material/breadboardSmall.webp" alt="Breadboard"
-                                        class="item-image">
-                                </td>
-                                <td data-label="Category" class="hide-tablet">Accessories</td>
-                                <td data-label="Quantity">
-                                    <span class="quantity-badge quantity-warning">4</span>
-                                </td>
-                                <td data-label="Status" class="hide-mobile">
-                                    <span class="status-badge status-available">Available</span>
-                                </td>
-                                <td data-label="Actions">
-                                    <div class="action-buttons">
-                                        <?php if ($isAdmin): ?>
-                                            <button class="btn-action btn-edit" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn-action btn-delete" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-action btn-reserve" title="Reserve">
-                                                <i class="ri-add-line"></i>
-                                            </button>
-                                            <input type="number" class="qty-input" min="1" max="4" value="1"
-                                                title="Quantity">
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
+                            <!-- Inventory items will be loaded dynamically from the database -->
                         </tbody>
                     </table>
+                </div>
+                <div class="empty-state" style="display: none;">
+                    <img src="/assets/res/material/no-item.webp" alt="No items" class="empty-state-image">
+                    <p class="empty-state-text">No items in inventory</p>
                 </div>
             </div>
         </div>
