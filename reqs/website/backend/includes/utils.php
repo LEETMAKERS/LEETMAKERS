@@ -727,3 +727,51 @@ function validateOTPFormat($otp)
     }
     return null;
 }
+
+/**
+ * Fetch all inventory items from the database with calculated statistics.
+ *
+ * @param mysqli $conn The database connection object.
+ * @return array An associative array containing:
+ *               - 'items': Array of inventory items
+ *               - 'totalItems': Total number of items
+ *               - 'availableItems': Count of available items
+ *               - 'unavailableItems': Count of unavailable items
+ *               - 'totalQuantity': Sum of all item quantities
+ */
+function getInventoryData($conn)
+{
+    $inventoryItems = [];
+    $inventoryQuery = "SELECT id, item_name, item_image, category, quantity, status FROM inventory ORDER BY id ASC";
+    $inventoryResult = $conn->query($inventoryQuery);
+
+    if ($inventoryResult) {
+        while ($row = $inventoryResult->fetch_assoc()) {
+            $inventoryItems[] = $row;
+        }
+        $inventoryResult->free();
+    }
+
+    // Calculate stats
+    $totalItems = count($inventoryItems);
+    $availableItems = 0;
+    $unavailableItems = 0;
+    $totalQuantity = 0;
+
+    foreach ($inventoryItems as $item) {
+        $totalQuantity += $item['quantity'];
+        if ($item['status'] === 'available') {
+            $availableItems++;
+        } else {
+            $unavailableItems++;
+        }
+    }
+
+    return [
+        'items' => $inventoryItems,
+        'totalItems' => $totalItems,
+        'availableItems' => $availableItems,
+        'unavailableItems' => $unavailableItems,
+        'totalQuantity' => $totalQuantity
+    ];
+}
