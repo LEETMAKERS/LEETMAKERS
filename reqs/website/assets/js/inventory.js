@@ -7,6 +7,9 @@
         const table = document.querySelector('.inventory-table');
         if (!table) return;
 
+        // Check if table is empty and show/hide empty state
+        checkTableEmpty();
+
         const headers = table.querySelectorAll('th .th-content');
         let currentSortColumn = null;
         let currentSortOrder = 'asc';
@@ -100,6 +103,20 @@
             }
 
             return cell.textContent.trim();
+        }
+
+        function checkTableEmpty() {
+            const tbody = table.querySelector('tbody');
+            const rows = tbody.querySelectorAll('tr');
+            const emptyState = document.querySelector('.empty-state');
+
+            if (rows.length === 0) {
+                // No items - show empty state below table
+                if (emptyState) emptyState.style.display = 'flex';
+            } else {
+                // Has items - hide empty state
+                if (emptyState) emptyState.style.display = 'none';
+            }
         }
     });
 
