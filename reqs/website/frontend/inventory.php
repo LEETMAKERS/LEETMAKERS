@@ -23,6 +23,14 @@ $userData = $result->fetch_assoc();
 $userRole = $userData['role'] ?? 'member';
 $isAdmin = ($userRole === 'admin');
 $stmt->close();
+
+// Fetch inventory data using utility function
+$inventoryData = getInventoryData($conn);
+$inventoryItems = $inventoryData['items'];
+$totalItems = $inventoryData['totalItems'];
+$availableItems = $inventoryData['availableItems'];
+$unavailableItems = $inventoryData['unavailableItems'];
+$totalQuantity = $inventoryData['totalQuantity'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +82,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Total Items</h3>
-                            <p class="stat-number">0</p>
+                            <p class="stat-number"><?php echo $totalItems; ?></p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -83,7 +91,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Available</h3>
-                            <p class="stat-number">0</p>
+                            <p class="stat-number"><?php echo $availableItems; ?></p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -92,7 +100,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Unavailable</h3>
-                            <p class="stat-number">0</p>
+                            <p class="stat-number"><?php echo $unavailableItems; ?></p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -101,7 +109,7 @@ $stmt->close();
                         </div>
                         <div class="stat-info">
                             <h3>Total Quantity</h3>
-                            <p class="stat-number">0</p>
+                            <p class="stat-number"><?php echo $totalQuantity; ?></p>
                         </div>
                     </div>
                 </div>
@@ -155,7 +163,80 @@ $stmt->close();
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Inventory items will be loaded dynamically from the database -->
+                            <?php if (!empty($inventoryItems)): ?>
+                                <?php foreach ($inventoryItems as $item): ?>
+                                    <tr data-id="<?php echo $item['id']; ?>">
+                                        <td data-label="ID"><?php echo htmlspecialchars($item['id']); ?></td>
+                                        <td data-label="Item Name">
+                                            <div class="item-name">
+                                                <span><?php echo htmlspecialchars($item['item_name']); ?></span>
+                                            </div>
+                                        </td>
+                                        <td data-label="Image" class="hide-mobile">
+                                            <?php if (!empty($item['item_image'])): ?>
+                                                <img src="<?php echo htmlspecialchars($item['item_image']); ?>"
+                                                    alt="<?php echo htmlspecialchars($item['item_name']); ?>" class="item-image">
+                                            <?php else: ?>
+                                                <img src="/assets/res/material/no-item.webp" alt="No image" class="item-image">
+                                            <?php endif; ?>
+                                        </td>
+                                        <td data-label="Category" class="hide-tablet">
+                                            <?php echo htmlspecialchars($item['category'] ?? 'Uncategorized'); ?>
+                                        </td>
+                                        <td data-label="Quantity">
+                                            <?php
+                                            $qtyClass = '';
+                                            if ($item['quantity'] == 0) {
+                                                $qtyClass = 'quantity-low';
+                                            } elseif ($item['quantity'] <= 5) {
+                                                $qtyClass = 'quantity-warning';
+                                            }
+                                            ?>
+                                            <span class="quantity-badge <?php echo $qtyClass; ?>">
+                                                <?php echo htmlspecialchars($item['quantity']); ?>
+                                            </span>
+                                        </td>
+                                        <td data-label="Status" class="hide-mobile">
+                                            <?php
+                                            $statusClass = $item['status'] === 'available' ? 'status-available' : 'status-unavailable';
+                                            $statusText = ucfirst($item['status']);
+                                            ?>
+                                            <span class="status-badge <?php echo $statusClass; ?>">
+                                                <?php echo $statusText; ?>
+                                            </span>
+                                        </td>
+                                        <td data-label="Actions">
+                                            <div class="action-buttons">
+                                                <?php if ($isAdmin): ?>
+                                                    <button class="btn-action btn-edit" title="Edit"
+                                                        data-id="<?php echo $item['id']; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn-action btn-delete" title="Delete"
+                                                        data-id="<?php echo $item['id']; ?>">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                <?php else: ?>
+                                                    <?php if ($item['status'] === 'available' && $item['quantity'] > 0): ?>
+                                                        <button class="btn-action btn-reserve" title="Reserve"
+                                                            data-id="<?php echo $item['id']; ?>">
+                                                            <i class="ri-add-line"></i>
+                                                        </button>
+                                                        <input type="number" class="qty-input" min="1"
+                                                            max="<?php echo $item['quantity']; ?>" value="1" title="Quantity">
+                                                    <?php else: ?>
+                                                        <button class="btn-action btn-reserve" title="Reserve" disabled>
+                                                            <i class="ri-add-line"></i>
+                                                        </button>
+                                                        <input type="number" class="qty-input" min="0" max="0" value="0"
+                                                            title="Quantity" disabled>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
