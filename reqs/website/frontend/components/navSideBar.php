@@ -38,8 +38,8 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
       </button>
 
       <div class="search-container">
-         <input type="text" placeholder="Search" name="text" class="input" autocomplete="off">
-         <button type="submit" class="search-button">
+         <input type="text" placeholder="Search" name="search" id="global-search" class="input" autocomplete="off">
+         <button type="button" class="search-button" id="search-btn">
             <i class="ri-search-line"></i>
          </button>
       </div>
