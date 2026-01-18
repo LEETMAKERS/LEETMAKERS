@@ -89,7 +89,7 @@
         if (!table) return;
 
         const tbody = table.querySelector('tbody');
-        const rows = tbody.querySelectorAll('tr:not(.search-empty-state)');
+        const rows = tbody.querySelectorAll('tr:not(.search-empty-state):not(.pagination-empty-state)');
         const activeFilter = document.querySelector('.filter-pill.active')?.dataset.category || 'all';
 
         let visibleCount = 0;
@@ -125,21 +125,27 @@
                 matchesSearch = true;
             }
 
-            // Show/hide row
+            // Mark row as filtered or not (for pagination integration)
             if (matchesSearch && matchesFilter) {
-                row.style.display = '';
-                row.style.animation = 'fadeInRow 0.3s ease forwards';
+                row.dataset.filtered = 'false';
+                row.classList.remove('search-hidden');
                 visibleCount++;
             } else {
-                row.style.display = 'none';
+                row.dataset.filtered = 'true';
+                row.classList.add('search-hidden');
             }
         });
 
         // Handle empty state
         handleEmptyState(visibleCount, tbody);
 
-        // Update stats display
+        // Update search stats
         updateSearchStats(visibleCount, totalRows);
+
+        // Notify pagination to refresh
+        if (window.inventoryPagination) {
+            window.inventoryPagination.refresh();
+        }
     }
 
     /**
