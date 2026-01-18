@@ -261,6 +261,9 @@
         exportBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdown.classList.toggle('open');
+            // Close import dropdown if open
+            const importDropdown = document.getElementById('import-dropdown');
+            if (importDropdown) importDropdown.classList.remove('open');
         });
 
         // Handle export option clicks
