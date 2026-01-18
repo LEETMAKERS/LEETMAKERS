@@ -38,8 +38,8 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
       </button>
 
       <div class="search-container">
-         <input type="text" placeholder="Search" name="text" class="input" autocomplete="off">
-         <button type="submit" class="search-button">
+         <input type="text" placeholder="Search" name="search" id="global-search" class="input" autocomplete="off">
+         <button type="button" class="search-button" id="search-btn">
             <i class="ri-search-line"></i>
          </button>
       </div>
@@ -89,10 +89,12 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
                   <i class="ri-calendar-event-line"></i>
                   <span>Events</span>
                </a>
-               <a href="/inventory" class="sidebar__link <?= isActive('inventory', $currentPage) ?>">
-                  <i class="ri-archive-line"></i>
-                  <span>Inventory</span>
-               </a>
+               <?php if (isset($userDetails['role']) && ($userDetails['role'] === 'admin') || ($userDetails['role'] === 'member')): ?>
+                  <a href="/inventory" class="sidebar__link <?= isActive('inventory', $currentPage) ?>">
+                     <i class="ri-archive-line"></i>
+                     <span>Inventory</span>
+                  </a>
+               <?php endif; ?>
             </div>
          </div>
 

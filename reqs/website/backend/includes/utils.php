@@ -179,6 +179,43 @@ function ensureUserIsAdmin($userId, $conn)
 }
 
 /**
+ * Ensure the user is a member or admin (not a visitor).
+ * If the user is a visitor, they will be redirected to the 403 error page.
+ *
+ * @param int    $userId The user ID to check.
+ * @param mysqli $conn   The database connection.
+ * @return void Redirects to 403 error page if user is a visitor.
+ */
+function ensureUserIsMember($userId, $conn)
+{
+    $query = "SELECT role FROM identity WHERE id = ?";
+    $stmt = $conn->prepare($query);
+
+    if (!$stmt) {
+        recordLogs("Database Error: " . $conn->error, 'ERROR');
+        header("Location: /errors/handler?code=500");
+        exit();
+    }
+
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        if ($user['role'] === 'visitor') {
+            header("Location: /errors/handler?code=403");
+            exit();
+        }
+    } else {
+        header("Location: /errors/handler?code=403");
+        exit();
+    }
+
+    $stmt->close();
+}
+
+/**
  * Retrieve the user details from the database.
  *
  * @param int    $sessionId The user ID from the session.
@@ -689,4 +726,53 @@ function validateOTPFormat($otp)
         return "OTP Token must be 6 digits long.";
     }
     return null;
+}
+
+/**
+ * Fetch all inventory items from the database with calculated statistics.
+ * Status is determined by quantity: available (qty > 0) or unavailable (qty = 0)
+ *
+ * @param mysqli $conn The database connection object.
+ * @return array An associative array containing:
+ *               - 'items': Array of inventory items
+ *               - 'totalItems': Total number of items
+ *               - 'availableItems': Count of items with quantity > 0
+ *               - 'unavailableItems': Count of items with quantity = 0
+ *               - 'totalQuantity': Sum of all item quantities
+ */
+function getInventoryData($conn)
+{
+    $inventoryItems = [];
+    $inventoryQuery = "SELECT id, item_name, item_image, category, quantity FROM inventory ORDER BY id ASC";
+    $inventoryResult = $conn->query($inventoryQuery);
+
+    if ($inventoryResult) {
+        while ($row = $inventoryResult->fetch_assoc()) {
+            $inventoryItems[] = $row;
+        }
+        $inventoryResult->free();
+    }
+
+    // Calculate stats - status determined by quantity
+    $totalItems = count($inventoryItems);
+    $availableItems = 0;
+    $unavailableItems = 0;
+    $totalQuantity = 0;
+
+    foreach ($inventoryItems as $item) {
+        $totalQuantity += $item['quantity'];
+        if ($item['quantity'] > 0) {
+            $availableItems++;
+        } else {
+            $unavailableItems++;
+        }
+    }
+
+    return [
+        'items' => $inventoryItems,
+        'totalItems' => $totalItems,
+        'availableItems' => $availableItems,
+        'unavailableItems' => $unavailableItems,
+        'totalQuantity' => $totalQuantity
+    ];
 }
