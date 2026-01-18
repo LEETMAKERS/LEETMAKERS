@@ -730,19 +730,20 @@ function validateOTPFormat($otp)
 
 /**
  * Fetch all inventory items from the database with calculated statistics.
+ * Status is determined by quantity: available (qty > 0) or unavailable (qty = 0)
  *
  * @param mysqli $conn The database connection object.
  * @return array An associative array containing:
  *               - 'items': Array of inventory items
  *               - 'totalItems': Total number of items
- *               - 'availableItems': Count of available items
- *               - 'unavailableItems': Count of unavailable items
+ *               - 'availableItems': Count of items with quantity > 0
+ *               - 'unavailableItems': Count of items with quantity = 0
  *               - 'totalQuantity': Sum of all item quantities
  */
 function getInventoryData($conn)
 {
     $inventoryItems = [];
-    $inventoryQuery = "SELECT id, item_name, item_image, category, quantity, status FROM inventory ORDER BY id ASC";
+    $inventoryQuery = "SELECT id, item_name, item_image, category, quantity FROM inventory ORDER BY id ASC";
     $inventoryResult = $conn->query($inventoryQuery);
 
     if ($inventoryResult) {
@@ -752,7 +753,7 @@ function getInventoryData($conn)
         $inventoryResult->free();
     }
 
-    // Calculate stats
+    // Calculate stats - status determined by quantity
     $totalItems = count($inventoryItems);
     $availableItems = 0;
     $unavailableItems = 0;
@@ -760,7 +761,7 @@ function getInventoryData($conn)
 
     foreach ($inventoryItems as $item) {
         $totalQuantity += $item['quantity'];
-        if ($item['status'] === 'available') {
+        if ($item['quantity'] > 0) {
             $availableItems++;
         } else {
             $unavailableItems++;
