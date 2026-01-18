@@ -77,7 +77,8 @@ $totalQuantity = $inventoryData['totalQuantity'];
                     <div class="header-actions">
                         <div class="import-dropdown" id="import-dropdown">
                             <button class="btn-import" id="import-btn">
-                                <i class="ri-upload-2-line"></i> Import
+                                <i class="ri-upload-2-line"></i>
+                                <span class="btn-text">Import</span>
                                 <i class="ri-arrow-down-s-line dropdown-arrow"></i>
                             </button>
                             <div class="import-menu" id="import-menu">
@@ -91,7 +92,8 @@ $totalQuantity = $inventoryData['totalQuantity'];
                         </div>
                         <div class="export-dropdown" id="export-dropdown">
                             <button class="btn-export" id="export-btn">
-                                <i class="ri-download-2-line"></i> Export
+                                <i class="ri-download-2-line"></i>
+                                <span class="btn-text">Export</span>
                                 <i class="ri-arrow-down-s-line dropdown-arrow"></i>
                             </button>
                             <div class="export-menu" id="export-menu">
@@ -104,7 +106,8 @@ $totalQuantity = $inventoryData['totalQuantity'];
                             </div>
                         </div>
                         <button class="btn-add-item" id="add-item-btn">
-                            <i class="fas fa-plus"></i> Add New Item
+                            <i class="fas fa-plus"></i>
+                            <span class="btn-text">Add New Item</span>
                         </button>
                         <button class="btn-clear-inventory" id="clear-inventory-btn" title="Clear all inventory">
                             <i class="ri-delete-bin-7-line"></i>
@@ -113,46 +116,44 @@ $totalQuantity = $inventoryData['totalQuantity'];
                 <?php endif; ?>
             </div>
 
-            <?php if ($isAdmin): ?>
-                <div class="inventory-stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-boxes"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Total Items</h3>
-                            <p class="stat-number"><?php echo $totalItems; ?></p>
-                        </div>
+            <div class="inventory-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-boxes"></i>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon stat-icon-success">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Available</h3>
-                            <p class="stat-number"><?php echo $availableItems; ?></p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon stat-icon-danger">
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Unavailable</h3>
-                            <p class="stat-number"><?php echo $unavailableItems; ?></p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon stat-icon-warning">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Total Quantity</h3>
-                            <p class="stat-number"><?php echo $totalQuantity; ?></p>
-                        </div>
+                    <div class="stat-info">
+                        <h3>Total Items</h3>
+                        <p class="stat-number"><?php echo $totalItems; ?></p>
                     </div>
                 </div>
-            <?php endif; ?>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Available</h3>
+                        <p class="stat-number"><?php echo $availableItems; ?></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-danger">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Unavailable</h3>
+                        <p class="stat-number"><?php echo $unavailableItems; ?></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-warning">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Quantity</h3>
+                        <p class="stat-number"><?php echo $totalQuantity; ?></p>
+                    </div>
+                </div>
+            </div>
 
             <div class="table-container">
                 <div class="table-wrapper">
@@ -188,11 +189,13 @@ $totalQuantity = $inventoryData['totalQuantity'];
                                         <i class="fa-solid fa-angle-down"></i>
                                     </span>
                                 </th>
-                                <th>
-                                    <span class="th-content">
-                                        Actions
-                                    </span>
-                                </th>
+                                <?php if ($isAdmin): ?>
+                                    <th>
+                                        <span class="th-content">
+                                            Actions
+                                        </span>
+                                    </th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -229,9 +232,9 @@ $totalQuantity = $inventoryData['totalQuantity'];
                                                 <?php echo htmlspecialchars($item['quantity']); ?>
                                             </span>
                                         </td>
-                                        <td data-label="Actions">
-                                            <div class="action-buttons">
-                                                <?php if ($isAdmin): ?>
+                                        <?php if ($isAdmin): ?>
+                                            <td data-label="Actions">
+                                                <div class="action-buttons">
                                                     <button class="btn-action btn-edit" title="Edit Item"
                                                         data-id="<?php echo $item['id']; ?>"
                                                         data-name="<?php echo htmlspecialchars($item['item_name']); ?>"
@@ -245,30 +248,17 @@ $totalQuantity = $inventoryData['totalQuantity'];
                                                         data-name="<?php echo htmlspecialchars($item['item_name']); ?>">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                <?php else: ?>
-                                                    <?php if ($item['quantity'] > 0): ?>
-                                                        <button class="btn-action btn-reserve" title="Reserve"
-                                                            data-id="<?php echo $item['id']; ?>">
-                                                            <i class="ri-add-line"></i>
-                                                        </button>
-                                                        <input type="number" class="qty-input" min="1"
-                                                            max="<?php echo $item['quantity']; ?>" value="1" title="Quantity">
-                                                    <?php else: ?>
-                                                        <button class="btn-action btn-reserve" title="Reserve" disabled>
-                                                            <i class="ri-add-line"></i>
-                                                        </button>
-                                                        <input type="number" class="qty-input" min="0" max="0" value="0"
-                                                            title="Quantity" disabled>
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
-                                            </div>
-                                        </td>
+                                                </div>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
+                <!-- Pagination Container -->
+                <div class="pagination-container"></div>
                 <div class="empty-state" style="display: none;">
                     <img src="/assets/res/material/no-item.webp" alt="No items" class="empty-state-image">
                     <p class="empty-state-text">No items in inventory</p>
@@ -617,7 +607,26 @@ $totalQuantity = $inventoryData['totalQuantity'];
     <script src="/assets/js/navSidebar.js"></script>
     <script src="/assets/js/logout.js"></script>
     <script src="/assets/js/notifier.js"></script>
+    <script src="/assets/js/pagination.js"></script>
+    <script src="/assets/js/searchFilter.js"></script>
     <script src="/assets/js/inventory.js"></script>
+    <script>
+        // Initialize pagination for inventory table
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.querySelector('.inventory-table tbody tr')) {
+                window.inventoryPagination = new Pagination({
+                    containerSelector: '.inventory-table tbody',
+                    itemSelector: 'tr:not(.search-empty-state)',
+                    paginationContainer: '.pagination-container',
+                    itemsPerPage: 'auto',
+                    maxVisiblePages: 7,
+                    showFirstLast: true,
+                    showItemsPerPage: false,
+                    showPageInfo: false
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
