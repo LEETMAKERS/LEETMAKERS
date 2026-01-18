@@ -95,7 +95,6 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `item_image` VARCHAR(255) DEFAULT NULL,
   `category` VARCHAR(64) DEFAULT NULL,
   `quantity` INT NOT NULL DEFAULT 0,
-  `status` ENUM('available', 'unavailable', 'reserved') NOT NULL DEFAULT 'available',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
